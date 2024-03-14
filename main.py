@@ -37,8 +37,9 @@ print("SIMPLE INTEREST SAVINGS ACCOUNT\n")
 simpleaccount = simple_numbers()
 print("COMPOUND INTEREST SAVINGS ACCOUNT\n")
 compoundaccount = compound_numbers()
+print("PROJECTION INTO FUTURE\n")
 future = projection()
 simpleinterestearned = simple_calculations(simpleaccount, future) - simpleaccount["principal"]
 compoundinterestearned = compound_calculations(compoundaccount, future) - compoundaccount["principal"]
-print("In a simple interest account, with the data you entered, you would end up with", "$" + str(simple_calculations(simpleaccount, future))+".", "The total interest earned is", "$" + simpleinterestearned)
-print("In a compound interest account, with the data you entered, you would end up with", "$" + str(compound_calculations(compoundaccount, future))".", "The total interest earned is", "$" + compoundinterestearned)
+print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.")
+print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.")
