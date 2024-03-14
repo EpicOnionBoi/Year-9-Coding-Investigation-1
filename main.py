@@ -1,9 +1,13 @@
-def compound_numbers():
+def compound_numbers(module):
     principal = float(input("Principal amount (in dollars): "))
     rate = float(input("Interest rate (in percent): "))
     time = input("Time unit for interest (year, quarter, month, week, day): ")
     compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ")
-    return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate}
+    if module == 2:
+        targetamount = float(input("Target amount (in dollars): "))
+        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount}
+    else:
+        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate}
 
 def simple_numbers():
     principal = float(input("Principal amount (in dollars): "))
