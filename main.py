@@ -1,9 +1,9 @@
 def compound_numbers(module):
     principal = float(input("Principal amount (in dollars): "))
-    rate = float(input("Interest rate (in percent): "))
-    time = input("Time unit for interest (year, quarter, month, week, day): ")
-    compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ")
-    if module == 2:
+    rate = float(input("Interest rate (in percent): ")) 5
+    time = input("Time unit for interest (year, quarter, month, week, day): ") quarter
+    compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ") week
+    if module == "2":
         targetamount = float(input("Target amount (in dollars): "))
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount}
     else:
@@ -17,8 +17,11 @@ def simple_numbers():
 
 def projection():
     projectionunit = input("What unit is used to project into the future (year, quarter, month, week, day): ")
-    projectiontime = float(input(f"Enter the amount of {projectionunit}s to project into the future: "))
-    return {"projection unit":projectionunit, "projection time":projectiontime}
+    if module != "2":
+        projectiontime = float(input(f"Enter the amount of {projectionunit}s to project into the future: "))
+        return {"projection unit":projectionunit, "projection time":projectiontime}
+    else:
+        return {"projection unit":projectionunit}
 
 def simple_calculations(simpleaccount, future):
     interestrate = (simpleaccount["rate"]*time_units[simpleaccount["time"]])/100
@@ -52,6 +55,20 @@ if module == "1":
     print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.")
     print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.")
 if module == "2":
-    pass
+    compoundaccount = compound_numbers(module)
+    future = projection()
+    currentamount = compoundaccount["principal"]
+    periods = 0
+    interestpercompound = (compoundaccount["rate"]/(time_units[compoundaccount["compound rate"]]/time_units[compoundaccount["time"]]))/100
+    progression = []
+    while currentamount < compoundaccount["target amount"]:
+        periods += 1
+        interest = currentamount*interestpercompound
+        currentamount += interest
+        progression.append(round(currentamount, 2))
+
+
+
+
 if module == "QUIT" or "quit":
     pass
