@@ -85,3 +85,4 @@ if module == "3":
         interest2 = currentamount2*interestpercompound2
         currentamount2 += interest2
         progression2.append(round(currentamount2, 2))
+    print(f"In the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
