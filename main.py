@@ -1,3 +1,4 @@
+import tabulate
 def compound_numbers(module):
     principal = float(input("Principal amount (in dollars): "))
     rate = float(input("Interest rate (in percent): "))
@@ -12,6 +13,9 @@ def compound_numbers(module):
         if targetamount == 0:
             intofuture = float(input("In that case, enter the amount of time to project for: "))
             intofutureunit = float(input("Enter the projection time unit (year, quarter, month, week, day, custom)"))
+            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount, "into future":intofuture, "into future unit":intofutureunit}
+        else:
+            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount}
     else:
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate}
 
@@ -93,4 +97,20 @@ if module == "3":
         progression2.append(round(currentamount2, 2))
     print(f"In the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
 if module == "4":
-    
+    account = compound_numbers(module)
+    principals = []
+    interest = []
+    deposits = []
+    finals = []
+    currentamount = account["principal"]
+    interestpercompound = (account["rate"]/(time_units[account["compound rate"]]/time_units[account["time"]]))/100
+    depositamount = account["deposit amount"]
+    if account["target amount"] == 0:
+        for e in range(int((time_units[account["rate"]])*account["into future"])):
+            principals.append(round(currentamount, 2))
+            interest = currentamount * interestpercompound
+            currentamount += interest + depositamount
+            deposits.append(depositamount)
+            finals.append(round(currentamount, 2))
+            interest.append(round(interest, 2))
+        
