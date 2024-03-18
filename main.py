@@ -6,6 +6,12 @@ def compound_numbers(module):
     if module == "2":
         targetamount = float(input("Target amount (in dollars): "))
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount}
+    elif module == "4":
+        depositamount = float(input("Enter the regular deposit amount per compounding period ($): "))
+        targetamount = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): "))
+        if targetamount == 0:
+            intofuture = float(input("In that case, enter the amount of time to project for: "))
+            intofutureunit = float(input("Enter the projection time unit (year, quarter, month, week, day, custom)"))
     else:
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate}
 
@@ -86,3 +92,5 @@ if module == "3":
         currentamount2 += interest2
         progression2.append(round(currentamount2, 2))
     print(f"In the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
+if module == "4":
+    
