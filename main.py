@@ -1,4 +1,4 @@
-import tabulate
+from tabulate import tabulate
 def compound_numbers(module):
     principal = float(input("Principal amount (in dollars): "))
     rate = float(input("Interest rate (in percent): "))
@@ -12,7 +12,7 @@ def compound_numbers(module):
         targetamount = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): "))
         if targetamount == 0:
             intofuture = float(input("In that case, enter the amount of time to project for: "))
-            intofutureunit = float(input("Enter the projection time unit (year, quarter, month, week, day, custom)"))
+            intofutureunit = input("Enter the projection time unit (year, quarter, month, week, day): ")
             return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount, "into future":intofuture, "into future unit":intofutureunit}
         else:
             return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount}
@@ -99,18 +99,23 @@ if module == "3":
 if module == "4":
     account = compound_numbers(module)
     principals = []
-    interest = []
+    interests = []
     deposits = []
     finals = []
     currentamount = account["principal"]
     interestpercompound = (account["rate"]/(time_units[account["compound rate"]]/time_units[account["time"]]))/100
     depositamount = account["deposit amount"]
     if account["target amount"] == 0:
-        for e in range(int((time_units[account["rate"]])*account["into future"])):
+        for e in range(int((time_units[account["compound rate"]])*account["into future"])):
             principals.append(round(currentamount, 2))
             interest = currentamount * interestpercompound
             currentamount += interest + depositamount
             deposits.append(depositamount)
             finals.append(round(currentamount, 2))
-            interest.append(round(interest, 2))
-        
+            interests.append(round(interest, 2))
+        data = principals, interests, deposits, finals
+        data = list(map(list, zip(*data)))
+        header = ["Principal", "Interest", "Deposit", "Final"]
+        print(tabulate(data, tablefmt="grid", headers=header))
+    else:
+        while 
