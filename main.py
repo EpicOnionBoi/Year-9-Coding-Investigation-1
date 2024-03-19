@@ -113,9 +113,15 @@ if module == "4":
             deposits.append(depositamount)
             finals.append(round(currentamount, 2))
             interests.append(round(interest, 2))
-        data = principals, interests, deposits, finals
-        data = list(map(list, zip(*data)))
-        header = ["Principal", "Interest", "Deposit", "Final"]
-        print(tabulate(data, tablefmt="grid", headers=header))
     else:
-        while 
+        while currentamount < account["target amount"]:
+            principals.append(round(currentamount, 2))
+            interest = currentamount * interestpercompound
+            currentamount += interest + depositamount
+            deposits.append(depositamount)
+            finals.append(round(currentamount, 2))
+            interests.append(round(interest, 2))
+    data = principals, interests, deposits, finals
+    data = list(map(list, zip(*data)))
+    header = ["Principal", "Interest", "Deposit", "Final"]
+    print(tabulate(data, tablefmt="grid", headers=header))
