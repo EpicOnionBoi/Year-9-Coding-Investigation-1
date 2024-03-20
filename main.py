@@ -49,7 +49,7 @@ global time_units
 time_units = {'year' : 1, 'quarter' : 4, 'month' : 12, 'week' : 52, 'day' : 365}
 
 print("WELCOME TO INTEREST CALCULATIONS AND STUFF\nTHIS PROGRAM HAS 5 MODULES\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: MODEL INCREASES IN COMPOUNDING FREQUENCY")
-module = input("ENTER NUMBERS 1-5, OR 'QUIT' TO EXIT: ")
+module = input("ENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
 if module == "1":
     print("SIMPLE INTEREST SAVINGS ACCOUNT\n") 
     simpleaccount = simple_numbers()
@@ -61,7 +61,7 @@ if module == "1":
     compoundinterestearned = compound_calculations(compoundaccount, future) - compoundaccount["principal"]
     print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.")
     print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.")
-if module == "2":
+elif module == "2":
     compoundaccount = compound_numbers(module)
     currentamount = compoundaccount["principal"]
     periods = 0
@@ -74,7 +74,7 @@ if module == "2":
         progression.append(round(currentamount, 2))
     print(progression)
     print(periods)
-if module == "3":
+elif module == "3":
     print("COMPOUND ACCOUNT 1:\n")
     account1 = compound_numbers(module)
     future1 = projection()
@@ -95,8 +95,8 @@ if module == "3":
         interest2 = currentamount2*interestpercompound2
         currentamount2 += interest2
         progression2.append(round(currentamount2, 2))
-    print(f"In the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
-if module == "4":
+    print(f"\nIn the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
+elif module == "4":
     account = compound_numbers(module)
     principals = []
     interests = []
@@ -124,4 +124,9 @@ if module == "4":
     data = principals, interests, deposits, finals
     data = list(map(list, zip(*data)))
     header = ["Principal", "Interest", "Deposit", "Final"]
+    print("Here is a table of the progression of your money over time\n")
     print(tabulate(data, tablefmt="grid", headers=header))
+#elif module == "5":
+    
+else:
+    pass
