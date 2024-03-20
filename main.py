@@ -101,8 +101,7 @@ elif module == "3":
     currentamount1 = account1["principal"]
     progression1 = []
     for e in range(int((compoundrate1)*future1["projection time"])):
-        interest1 = currentamount1*interestpercompound1
-        currentamount1 += interest1
+        currentamount1 = calculations235(currentamount1, interestpercompound1)
         progression1.append(round(currentamount1, 2))
     if account2["compound rate"] in time_units:
         compoundrate2 = time_units[account2["compound rate"]]
@@ -112,10 +111,9 @@ elif module == "3":
     currentamount2 = account2["principal"]
     progression2 = []     
     for e in range(int((compoundrate2)*future2["projection time"])):
-        interest2 = currentamount2*interestpercompound2
-        currentamount2 += interest2
+        currentamount2 = calculations235(currentamount2, interestpercompound2)
         progression2.append(round(currentamount2, 2))
-    print(f"\nIn the first account, the progression throughout the projection is {progression1}\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\nThe total amount at the end is {progression2[-1]}")
+    print(f"\nIn the first account, the progression throughout the projection is {progression1}\n\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\n\nThe total amount at the end is {progression2[-1]}")
 elif module == "4":
     account = compound_numbers(module)
     principals = []
