@@ -50,10 +50,15 @@ def compound_calculations(compoundaccount,future):
     total = P*(1+(R/N))**(N*T)
     return round(total, 2)
 
+def calculations235(currentamount, interestpercompound):
+    interest = currentamount*interestpercompound
+    currentamount += interest
+    return currentamount
+
 global time_units
 time_units = {'year' : 1, 'quarter' : 4, 'month' : 12, 'week' : 52, 'day' : 365}
 
-print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: MODEL INCREASES IN COMPOUNDING FREQUENCY")
+print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES")
 module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
 if module == "1":
     print("SIMPLE INTEREST SAVINGS ACCOUNT\n") 
@@ -77,11 +82,10 @@ elif module == "2":
     progression = []
     while currentamount < compoundaccount["target amount"]:
         periods += 1
-        interest = currentamount*interestpercompound
-        currentamount += interest
+        currentamount = calculations235(currentamount, interestpercompound)
         progression.append(round(currentamount, 2))
-    print(progression)
-    print(periods)
+    print(f"\nHere is a list of the progression of the money until the garget was reached: {progression}\n")
+    print(f"A total of {periods} compounds is needed to reach the target")
 elif module == "3":
     print("\nCOMPOUND ACCOUNT 1:\n")
     account1 = compound_numbers(module)
@@ -150,9 +154,9 @@ elif module == "5":
     quarterly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
     weekly = {"principal":1000, "rate":100, "time":"year", "compound rate":"week", "projection unit":"year", "projection time":1}
     daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1}
-    hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
-    tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
-    interest = 100
+    hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":8760, "projection unit":"year", "projection time":1}
+    tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":52704, "projection unit":"year", "projection time":1}
+
 else:
     print("""
                                   µçççççççµ
