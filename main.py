@@ -4,6 +4,8 @@ def compound_numbers(module):
     rate = float(input("Interest rate (in percent): "))
     time = input("Time unit for interest (year, quarter, month, week, day): ")
     compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ")
+    if compoundrate == "custom":
+        compoundrate = float(input("Enter number of compoundings per year: "))
     if module == "2":
         targetamount = float(input("Target amount (in dollars): "))
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount}
@@ -40,7 +42,10 @@ def compound_calculations(compoundaccount,future):
     yearlyinterestrate = (compoundaccount["rate"]*time_units[compoundaccount["time"]])/100
     P = compoundaccount["principal"]
     R = yearlyinterestrate
-    N = time_units[compoundaccount["compound rate"]]
+    if compoundaccount["compound rate"] in time_units:
+        N = time_units[compoundaccount["compound rate"]]
+    else:
+        N = compoundaccount["compound rate"]
     T = future["projection time"]/time_units[future["projection unit"]]
     total = P*(1+(R/N))**(N*T)
     return round(total, 2)
@@ -48,8 +53,8 @@ def compound_calculations(compoundaccount,future):
 global time_units
 time_units = {'year' : 1, 'quarter' : 4, 'month' : 12, 'week' : 52, 'day' : 365}
 
-print("WELCOME TO INTEREST CALCULATIONS AND STUFF\nTHIS PROGRAM HAS 5 MODULES\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: MODEL INCREASES IN COMPOUNDING FREQUENCY")
-module = input("ENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
+print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: MODEL INCREASES IN COMPOUNDING FREQUENCY")
+module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
 if module == "1":
     print("SIMPLE INTEREST SAVINGS ACCOUNT\n") 
     simpleaccount = simple_numbers()
@@ -65,7 +70,10 @@ elif module == "2":
     compoundaccount = compound_numbers(module)
     currentamount = compoundaccount["principal"]
     periods = 0
-    interestpercompound = (compoundaccount["rate"]/(time_units[compoundaccount["compound rate"]]/time_units[compoundaccount["time"]]))/100
+    if compoundaccount["compound rate"] in time_units:
+        interestpercompound = (compoundaccount["rate"]/(time_units[compoundaccount["compound rate"]]/time_units[compoundaccount["time"]]))/100
+    else:
+        interestpercompound = (compoundaccount["rate"]/(compoundaccount["compound rate"]/time_units[compoundaccount["time"]]))/100
     progression = []
     while currentamount < compoundaccount["target amount"]:
         periods += 1
@@ -75,23 +83,31 @@ elif module == "2":
     print(progression)
     print(periods)
 elif module == "3":
-    print("COMPOUND ACCOUNT 1:\n")
+    print("\nCOMPOUND ACCOUNT 1:\n")
     account1 = compound_numbers(module)
     future1 = projection()
-    print("COMPOUND ACCOUNT 2:\n")
+    print("\nCOMPOUND ACCOUNT 2:\n")
     account2 = compound_numbers(module)
     future2 = projection()
-    interestpercompound1 = (account1["rate"]/(time_units[account1["compound rate"]]/time_units[account1["time"]]))/100
+    if account1["compound rate"] in time_units:
+        compoundrate1 = time_units[account1["compound rate"]]
+    else:
+        compoundrate1 = account1["compound rate"]
+    interestpercompound1 = (account1["rate"]/(compoundrate1/time_units[account1["time"]]))/100
     currentamount1 = account1["principal"]
     progression1 = []
-    for e in range(int((time_units[account1["compound rate"]])*future1["projection time"])):
+    for e in range(int((compoundrate1)*future1["projection time"])):
         interest1 = currentamount1*interestpercompound1
         currentamount1 += interest1
         progression1.append(round(currentamount1, 2))
-    interestpercompound2 = (account2["rate"]/(time_units[account2["compound rate"]]/time_units[account2["time"]]))/100
+    if account2["compound rate"] in time_units:
+        compoundrate2 = time_units[account2["compound rate"]]
+    else:
+        compoundrate2 = account2["compound rate"]
+    interestpercompound2 = (account2["rate"]/(compoundrate2/time_units[account2["time"]]))/100
     currentamount2 = account2["principal"]
     progression2 = []     
-    for e in range(int((time_units[account2["compound rate"]])*future2["projection time"])):
+    for e in range(int((compoundrate2)*future2["projection time"])):
         interest2 = currentamount2*interestpercompound2
         currentamount2 += interest2
         progression2.append(round(currentamount2, 2))
@@ -103,10 +119,14 @@ elif module == "4":
     deposits = []
     finals = []
     currentamount = account["principal"]
-    interestpercompound = (account["rate"]/(time_units[account["compound rate"]]/time_units[account["time"]]))/100
+    if account["compound rate"] in time_units:
+        compoundrate = time_units[account["compound rate"]]
+    else:
+        compoundrate = account["compound rate"]
+    interestpercompound = (account["rate"]/(compoundrate/time_units[account["time"]]))/100
     depositamount = account["deposit amount"]
     if account["target amount"] == 0:
-        for e in range(int((time_units[account["compound rate"]])*account["into future"])):
+        for e in range(int((compoundrate)*account["into future"])):
             principals.append(round(currentamount, 2))
             interest = currentamount * interestpercompound
             currentamount += interest + depositamount
@@ -124,9 +144,61 @@ elif module == "4":
     data = principals, interests, deposits, finals
     data = list(map(list, zip(*data)))
     header = ["Principal", "Interest", "Deposit", "Final"]
-    print("Here is a table of the progression of your money over time\n")
+    print("Here is a table of the progression of your money over time\n\n")
     print(tabulate(data, tablefmt="grid", headers=header))
-#elif module == "5":
-    
+elif module == "5":
+    quarterly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
+    weekly = {"principal":1000, "rate":100, "time":"year", "compound rate":"week", "projection unit":"year", "projection time":1}
+    daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1}
+    hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
+    tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
+    interest = 100
 else:
-    pass
+    print("""
+                                  µçççççççµ
+                         µ▄æ╧╜╩ññ.  ▄▄▄æ##æ▄▓▀▄,
+                    ▄#╜²         ¿ççç▄▄▄▄▄▄▄▄▄,;▀gµ
+                 ▄▀²                               ▀▄
+               ▄▀         ,▄æ▀╨▀▀▀æ▄,               ²▀
+             ,▀         ▄▀          _▀▄          ▄▀╜ñ²▀
+            ▄▀         █              "▌        █      █
+           █`         ▄ææM▀╩ñññññ╙▀%▄,                 ╘▌
+         ¿▀      ,▄██▌                ²▀▄,µ,    ▄#▀╨╨╨╨╨▀█æwçµ
+        ▐Ö      █▓╜ ▐¿                  ▐.  a/╙▓         Ñ▄   ²%,
+       ▐Ö     ▄▓▀    ▓  ▐╨▀▒▄▄çñ▀%▄    ▓▐   ²▀▓⌂,▄▄gæææµ Ñ     ▓▓█
+       ▌    ▄▓▀      "█,▓▄▓▓▓▓▓▄æ#▀╙   ▌╨"       ²█▓▓▓  ▓  █    ▓▓"
+      █    █▀          _²²╙╩╙╨▀▀════#█▒▄æ▀▀       ▓  ¡²²└  ╙▄  ▐▓
+      ▓  J▀                         ▌    ,¿▄µ      ²▀▄²ñ╙╩╩█▌╙╙▓_
+     ]M #"                          ▓   █▓▓▓▀   ▄▓██ _█     ²▌▌
+     ]▄▀                            ▀ç,╘▀▀░_     ▀▀å¿▀        █
+     ]&                                ²²        ╨╨▀;          ▌
+     ]«                                                        Ñ
+     ]«                                   µççççççµ              █
+     ]«                              ▄#▀▓« ▌  ▐  ▐M▀▄           ÑΩ
+     ]«                           ¿▌²Ñ, ▄██▓▓▓▓██▓▄▌╙▌           ▓
+     ]«                          ▀╙▐▄█▓▓▓▓▓▓▓▓▓▓▓▓═▓g▓           ]Ω
+     ]M    ,█              ▄    ███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▀#█▒▓           ▐
+    ,█▌  ñ▒M,▄M           █    ▐█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌           ▌
+   ²░]▄▓██▓▌_ ¿          ▐╜    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓M  ▌       █
+     ▐▌█▓ñ▒▌█╩          ▐`    ]▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓M  ▓     *▓█*
+   æ▀ç▓▀▒▒▄▀▄█          ▌    ,█▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   Ñ     ▐▓▄²
+ ²ñ²_▓▓▓▓▓▀ç▄#╛       █     ]▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   Ñ    ▓▓▓▌
+     ,▄▓▓ ,╬&          ÑΩ    ]▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌   ▓    ▓▓█╙
+    ,,,▄▓▌▀█▓══         ▌     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   █    █▓▓▀*
+     _µ▄▓▓▄▄▄                 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓M  ]&   █▓▒_
+     ¿▄█▓▓▓▓▀                  ▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌       ]▓▀▀
+      "▀▀▓█▀▄▄▓▀               ▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓       ]▓█▌
+         ▐▄▓▒▄▀▄    $█M#┘       ▐▓╓▓▓▓▓▓▓▓▓▓▓▓▒▓▓_       ▐▒▓▓
+       æ▀▓▓▀▓▄▄Ö╙╩▀▓▓▓▓ç▄▄æ      ╙▓█ÖÅ▓▀▓▀█▀▌▄█▀        ▐▓▓▓▀
+     ¿▄Ö² ]M.▓▌▐█▄▄▓æææ▓▓`          ²▀▀▀██▓▀▀╙     g█▄ ▐▓▓██▌
+  ¿#Ö    µ█#Öµ▓█▓▓ πçç█▄▒▓▓Ö`                    ▐g▓▌ j▓▐▓█▄æ
+¿#▀_    ╙╩` #▀▓▓▀▓▓▓▓▓▓█▄]▀▒▄▄▌∩                ▀▄▓▓²▀▄▓▓▀▀▀²╙%▄
+▄▀▀_          ╓█▓▀▀▀▀░█▓▓å▄▓²ñ)▓▓▌ ¡▄       ¿    ██Ñ▓▒▀]▓▄▓▓█µ▄   :▀▀æç
+             *æææ▀▀╢▓█▓▄▄»▄▓═▀▀▓▓▄▄▓]▄µ▌▓▓▄█▌▄▓▓⌂█ ¢▓╙▀æ∞           :ñ╩╨¼æ▄µ
+                ▐█▀▓▓▓▓▓██▓M▄²░²²▓▀Q▓▄MÑM  ▓  ²▓▒▓▓▌æ
+                  ² ╘╙Ñ▀▓▓%∩ ▌▌┌Ö▀▀▀╨▀.        ∞░▓▓▓▓▓▀╨
+                     ═▀░█,▒██▓▓▀ ╥ ▌,  ¡,,▌█▓▓▓▒▒▒ç
+                    ]æ#Ö  └▀▓▓▓▄▄▓██▄▓▄▄▓▓▓▓▓▄
+                           ²▄▄▓▓▀▀█▓▒▓▀▀█▄ç Ñ
+                                   ╙*    ╛
+    """)
