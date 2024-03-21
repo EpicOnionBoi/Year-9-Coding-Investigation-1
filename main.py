@@ -1,5 +1,5 @@
 from tabulate import tabulate # imports tabulate to print tables
-def compound_numbers(module): # creates a function
+def compound_numbers(module): # creates a function for gathering data for compound interest
     principal = float(input("Principal amount (in dollars): ")) # asks for the principal amount
     rate = float(input("Interest rate (in percent): ")) # asks for the interest rate in %
     time = input("Time unit for interest (year, quarter, month, week, day): ") # asks for the time unit for interest
@@ -17,20 +17,20 @@ def compound_numbers(module): # creates a function
             intofutureunit = input("Enter the projection time unit (year, quarter, month, week, day): ") # asks for the unit
             return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount, "into future":intofuture, "into future unit":intofutureunit} # returns all the data
         else:
-            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount}
+            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount} # returns all the data
     else: # otherwise
         return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate} # returns all the data
 
-def simple_numbers():
-    principal = float(input("Principal amount (in dollars): "))
-    rate = float(input("Interest rate (in percent): "))
-    time = input("Time unit for interest (year, quarter, month, week, day): ")
-    return {"principal":principal, "rate":rate, "time":time}
+def simple_numbers(): # creates a function for gathering data for simple interest
+    principal = float(input("Principal amount (in dollars): ")) # asks for the principal
+    rate = float(input("Interest rate (in percent): ")) # asks for the interest rate in %
+    time = input("Time unit for interest (year, quarter, month, week, day): ") # asks for the interest unit
+    return {"principal":principal, "rate":rate, "time":time} # returns all the data
 
-def projection():
-    projectionunit = input("What unit is used to project into the future (year, quarter, month, week, day): ")
-    projectiontime = float(input(f"Enter the amount of {projectionunit}s to project into the future: "))
-    return {"projection unit":projectionunit, "projection time":projectiontime}
+def projection(): # creates a function for projections
+    projectionunit = input("What unit is used to project into the future (year, quarter, month, week, day): ") # asks for the projection unit
+    projectiontime = float(input(f"Enter the amount of {projectionunit}s to project into the future: ")) # asks for the projection time
+    return {"projection unit":projectionunit, "projection time":projectiontime} # returns all the data
 
 def simple_calculations(simpleaccount, future):
     interestrate = (simpleaccount["rate"]*time_units[simpleaccount["time"]])/100
