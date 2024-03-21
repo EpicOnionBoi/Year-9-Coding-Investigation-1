@@ -52,8 +52,19 @@ def compound_calculations(compoundaccount,future): # creates a function for comp
 
 def calculations235(currentamount, interestpercompound): # creates a function for calculations in modules 2, 3 and 5 which will run in a loop
     interest = currentamount*interestpercompound # the interest in this compound (loop) is the current amount multiplied by the interest per compound (which will be calculated prior)
-    currentamount += interest # adds t he interest to the current amount
+    currentamount += interest # adds the interest to the current amount
     return currentamount # returns the current amount
+
+def loopington(account):
+    if account["compound rate"] in time_units:
+        compoundrate = time_units[account["compound rate"]]
+    else:
+        compoundrate = account["compound rate"]
+    currentamount = account["principal"]
+    interestpercompound = (account["rate"]/compoundrate)/100
+    for e in range(int(compoundrate)):
+        currentamount = calculations235(currentamount, interestpercompound)
+    return currentamount
 
 global time_units # mades time units a global variable
 time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365} # the dictionary used to convert a lot of data into per year format
@@ -154,6 +165,12 @@ elif module == "5":
     daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1}
     hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":8760, "projection unit":"year", "projection time":1}
     tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":52704, "projection unit":"year", "projection time":1}
+    quarterlyamount = loopington(quarterly)
+    weeklyamount = loopington(weekly)
+    dailyamount = loopington(daily)
+    hourlyamount = loopington(hourly)
+    tenminutelyamount = loopington(tenminutely)
+    print(quarterlyamount, weeklyamount, dailyamount, hourlyamount, tenminutelyamount)
 else:
     print("""
                                   µçççççççµ
