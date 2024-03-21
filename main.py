@@ -58,19 +58,19 @@ def calculations235(currentamount, interestpercompound): # creates a function fo
 global time_units # mades time units a global variable
 time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365} # the dictionary used to convert a lot of data into per year format
 
-print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES")
-module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
-if module == "1":
-    print("SIMPLE INTEREST SAVINGS ACCOUNT\n") 
-    simpleaccount = simple_numbers()
-    print("COMPOUND INTEREST SAVINGS ACCOUNT\n")
-    compoundaccount = compound_numbers()
-    print("PROJECTION INTO FUTURE\n")
-    future = projection()
-    simpleinterestearned = simple_calculations(simpleaccount, future) - simpleaccount["principal"]
-    compoundinterestearned = compound_calculations(compoundaccount, future) - compoundaccount["principal"]
-    print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.")
-    print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.")
+print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES") # homepage
+module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ") # asks for which module the user wants
+if module == "1": # if the user wants module 1
+    print("SIMPLE INTEREST SAVINGS ACCOUNT\n") # prints a heading
+    simpleaccount = simple_numbers() # calls the function to gather data
+    print("COMPOUND INTEREST SAVINGS ACCOUNT\n") # prints a heading
+    compoundaccount = compound_numbers() # calls the function to gather data
+    print("PROJECTION INTO FUTURE\n") # prints a heading
+    future = projection() # calls the function to get projection data
+    simpleinterestearned = simple_calculations(simpleaccount, future) - simpleaccount["principal"] # calculates the interest earned for the simple interest account
+    compoundinterestearned = compound_calculations(compoundaccount, future) - compoundaccount["principal"] # calculates the interest earned for the compound account
+    print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.") # prints the data for simple interest account
+    print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.") # prints the data for ccompound interest account
 elif module == "2":
     compoundaccount = compound_numbers(module)
     currentamount = compoundaccount["principal"]
