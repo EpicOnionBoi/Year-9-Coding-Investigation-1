@@ -12,14 +12,14 @@ def compound_numbers(module): # creates a function
     elif module == "4": # if the user is doing module 4
         depositamount = float(input("Enter the regular deposit amount per compounding period ($): ")) # asks for deposit amount
         targetamount = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): ")) # asks for target, or if they want to do a time frame instead
-        if targetamount == 0:
-            intofuture = float(input("In that case, enter the amount of time to project for: "))
-            intofutureunit = input("Enter the projection time unit (year, quarter, month, week, day): ")
-            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount, "into future":intofuture, "into future unit":intofutureunit}
+        if targetamount == 0: # if they want to project to a timeframe
+            intofuture = float(input("In that case, enter the amount of time to project for: ")) # asks for amount of time to project for
+            intofutureunit = input("Enter the projection time unit (year, quarter, month, week, day): ") # asks for the unit
+            return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount, "into future":intofuture, "into future unit":intofutureunit} # returns all the data
         else:
             return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "deposit amount":depositamount, "target amount":targetamount}
-    else:
-        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate}
+    else: # otherwise
+        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate} # returns all the data
 
 def simple_numbers():
     principal = float(input("Principal amount (in dollars): "))
