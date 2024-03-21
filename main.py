@@ -1,17 +1,17 @@
-from tabulate import tabulate
-def compound_numbers(module):
-    principal = float(input("Principal amount (in dollars): "))
-    rate = float(input("Interest rate (in percent): "))
-    time = input("Time unit for interest (year, quarter, month, week, day): ")
-    compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ")
-    if compoundrate == "custom":
-        compoundrate = float(input("Enter number of compoundings per year: "))
-    if module == "2":
-        targetamount = float(input("Target amount (in dollars): "))
-        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount}
-    elif module == "4":
-        depositamount = float(input("Enter the regular deposit amount per compounding period ($): "))
-        targetamount = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): "))
+from tabulate import tabulate # imports tabulate to print tables
+def compound_numbers(module): # creates a function
+    principal = float(input("Principal amount (in dollars): ")) # asks for the principal amount
+    rate = float(input("Interest rate (in percent): ")) # asks for the interest rate in %
+    time = input("Time unit for interest (year, quarter, month, week, day): ") # asks for the time unit for interest
+    compoundrate = input("Time unit for compounding (year, quarter, month, week, day, custom): ") # asks for the time unit for compounding
+    if compoundrate == "custom": # if the user requests a compound rate
+        compoundrate = float(input("Enter number of compoundings per year: ")) # the compound rate will be a number
+    if module == "2": # if the user is doing module 2
+        targetamount = float(input("Target amount (in dollars): ")) # asks for target amount
+        return {"principal":principal, "rate":rate, "time":time, "compound rate":compoundrate, "target amount":targetamount} # returns all the data
+    elif module == "4": # if the user is doing module 4
+        depositamount = float(input("Enter the regular deposit amount per compounding period ($): ")) # asks for deposit amount
+        targetamount = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): ")) # asks for target, or if they want to do a time frame instead
         if targetamount == 0:
             intofuture = float(input("In that case, enter the amount of time to project for: "))
             intofutureunit = input("Enter the projection time unit (year, quarter, month, week, day): ")
@@ -154,7 +154,6 @@ elif module == "5":
     daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1}
     hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":8760, "projection unit":"year", "projection time":1}
     tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":52704, "projection unit":"year", "projection time":1}
-
 else:
     print("""
                                   µçççççççµ
