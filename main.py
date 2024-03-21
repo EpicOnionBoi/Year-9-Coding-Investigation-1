@@ -38,17 +38,17 @@ def simple_calculations(simpleaccount, future): # creates a function for simple 
     total = simpleaccount["principal"]+interest # calculates total by adding principal and interest
     return round(total, 2) # returns the total
 
-def compound_calculations(compoundaccount,future):
-    yearlyinterestrate = (compoundaccount["rate"]*time_units[compoundaccount["time"]])/100
-    P = compoundaccount["principal"]
-    R = yearlyinterestrate
-    if compoundaccount["compound rate"] in time_units:
-        N = time_units[compoundaccount["compound rate"]]
-    else:
-        N = compoundaccount["compound rate"]
-    T = future["projection time"]/time_units[future["projection unit"]]
-    total = P*(1+(R/N))**(N*T)
-    return round(total, 2)
+def compound_calculations(compoundaccount,future): # creates a function for compound interest calculation
+    yearlyinterestrate = (compoundaccount["rate"]*time_units[compoundaccount["time"]])/100 # calculates the yearly interest rate as a decimal by multiplying the interest rate and the corresponding number to the interest unit
+    P = compoundaccount["principal"] # defines P as the principal
+    R = yearlyinterestrate # defines R as the yearly interest rate
+    if compoundaccount["compound rate"] in time_units: # if it is not a custom compound rate
+        N = time_units[compoundaccount["compound rate"]] # the number of compounds per year is defined as the corresponding number in the time units dictionary to the compound unit
+    else: # if it is a custom compound rate
+        N = compoundaccount["compound rate"] # N is equals to the number the user inputted in the first function
+    T = future["projection time"]/time_units[future["projection unit"]] # T is defined as the projection time converted to years by using the time units dictionary
+    total = P*(1+(R/N))**(N*T) # calculates the total using the compound interest formula
+    return round(total, 2) # returns the total
 
 def calculations235(currentamount, interestpercompound):
     interest = currentamount*interestpercompound
@@ -56,7 +56,7 @@ def calculations235(currentamount, interestpercompound):
     return currentamount
 
 global time_units
-time_units = {'year' : 1, 'quarter' : 4, 'month' : 12, 'week' : 52, 'day' : 365}
+time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365}
 
 print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES")
 module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
