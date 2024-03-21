@@ -50,13 +50,13 @@ def compound_calculations(compoundaccount,future): # creates a function for comp
     total = P*(1+(R/N))**(N*T) # calculates the total using the compound interest formula
     return round(total, 2) # returns the total
 
-def calculations235(currentamount, interestpercompound):
-    interest = currentamount*interestpercompound
-    currentamount += interest
-    return currentamount
+def calculations235(currentamount, interestpercompound): # creates a function for calculations in modules 2, 3 and 5 which will run in a loop
+    interest = currentamount*interestpercompound # the interest in this compound (loop) is the current amount multiplied by the interest per compound (which will be calculated prior)
+    currentamount += interest # adds t he interest to the current amount
+    return currentamount # returns the current amount
 
-global time_units
-time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365}
+global time_units # mades time units a global variable
+time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365} # the dictionary used to convert a lot of data into per year format
 
 print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES")
 module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ")
