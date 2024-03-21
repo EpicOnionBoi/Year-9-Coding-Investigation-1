@@ -32,11 +32,11 @@ def projection(): # creates a function for projections
     projectiontime = float(input(f"Enter the amount of {projectionunit}s to project into the future: ")) # asks for the projection time
     return {"projection unit":projectionunit, "projection time":projectiontime} # returns all the data
 
-def simple_calculations(simpleaccount, future):
-    interestrate = (simpleaccount["rate"]*time_units[simpleaccount["time"]])/100
-    interest = simpleaccount["principal"]*interestrate*(future["projection time"]/time_units[future["projection unit"]])
-    total = simpleaccount["principal"]+interest
-    return round(total, 2)
+def simple_calculations(simpleaccount, future): # creates a function for simple interest calculation
+    interestrate = (simpleaccount["rate"]*time_units[simpleaccount["time"]])/100 # multiplies the interest rate (in %) by the number corresponding to the unit and then divides by 100 to get the interest rate per year in a decimal 
+    interest = simpleaccount["principal"]*interestrate*(future["projection time"]/time_units[future["projection unit"]]) # calculates the total interest by multiplying the principal by the interest rate per year and then mutiplying that with the amount of time to project converted to years
+    total = simpleaccount["principal"]+interest # calculates total by adding principal and interest
+    return round(total, 2) # returns the total
 
 def compound_calculations(compoundaccount,future):
     yearlyinterestrate = (compoundaccount["rate"]*time_units[compoundaccount["time"]])/100
