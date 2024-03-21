@@ -71,21 +71,21 @@ if module == "1": # if the user wants module 1
     compoundinterestearned = compound_calculations(compoundaccount, future) - compoundaccount["principal"] # calculates the interest earned for the compound account
     print(f"In a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.") # prints the data for simple interest account
     print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.") # prints the data for ccompound interest account
-elif module == "2":
-    compoundaccount = compound_numbers(module)
-    currentamount = compoundaccount["principal"]
-    periods = 0
-    if compoundaccount["compound rate"] in time_units:
-        interestpercompound = (compoundaccount["rate"]/(time_units[compoundaccount["compound rate"]]/time_units[compoundaccount["time"]]))/100
-    else:
-        interestpercompound = (compoundaccount["rate"]/(compoundaccount["compound rate"]/time_units[compoundaccount["time"]]))/100
-    progression = []
-    while currentamount < compoundaccount["target amount"]:
-        periods += 1
-        currentamount = calculations235(currentamount, interestpercompound)
-        progression.append(round(currentamount, 2))
-    print(f"\nHere is a list of the progression of the money until the garget was reached: {progression}\n")
-    print(f"A total of {periods} compounds is needed to reach the target")
+elif module == "2": # if the user wants module 2
+    compoundaccount = compound_numbers(module) # calls the function to gather data
+    currentamount = compoundaccount["principal"] # defines the current amount as the principal
+    periods = 0 # defines the number of compounds so far as 0
+    if compoundaccount["compound rate"] in time_units: # if the user does not want a custom compound rate
+        interestpercompound = (compoundaccount["rate"]/(time_units[compoundaccount["compound rate"]]/time_units[compoundaccount["time"]]))/100 # calculates the interest per compound
+    else: # if the user wants  a custom compound rate
+        interestpercompound = (compoundaccount["rate"]/(compoundaccount["compound rate"]/time_units[compoundaccount["time"]]))/100 # calculates interest per compound
+    progression = [] # creates an empty list to put progressions in
+    while currentamount < compoundaccount["target amount"]: # while the current amount is less than the target amount
+        periods += 1 # adds one to the number of compounds
+        currentamount = calculations235(currentamount, interestpercompound) # calls the function to do the calculations
+        progression.append(round(currentamount, 2)) # adds the current amount to a list
+    print(f"\nHere is a list of the progression of the money until the target was reached: {progression}\n") # prints the list with the progressions in it
+    print(f"A total of {periods} compounds is needed to reach the target") # prints the number of compounds needed to reach the target
 elif module == "3":
     print("\nCOMPOUND ACCOUNT 1:\n")
     account1 = compound_numbers(module)
