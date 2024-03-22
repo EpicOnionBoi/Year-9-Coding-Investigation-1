@@ -55,21 +55,21 @@ def calculations235(currentamount, interestpercompound): # creates a function fo
     currentamount += interest # adds the interest to the current amount
     return currentamount # returns the current amount
 
-def loopington(account):
-    if account["compound rate"] in time_units:
-        compoundrate = time_units[account["compound rate"]]
-    else:
-        compoundrate = account["compound rate"]
-    currentamount = account["principal"]
-    interestpercompound = (account["rate"]/compoundrate)/100
-    for e in range(int(compoundrate)):
-        currentamount = calculations235(currentamount, interestpercompound)
-    return currentamount
+def loopington(account): # creates a loop function to be used in part 5
+    if account["compound rate"] in time_units: # if the compound rate is not a custom compound rate
+        compoundrate = time_units[account["compound rate"]] # sets the compound rate to the number of compounds per year
+    else: # if the compound rate is custom
+        compoundrate = account["compound rate"] # compound rate remains as a number
+    currentamount = account["principal"] # the current amount is the principal
+    interestpercompound = (account["rate"]/compoundrate)/100 # calculates the interest per compound
+    for e in range(int(compoundrate)): # runs the loop until the timeframe ends
+        currentamount = calculations235(currentamount, interestpercompound) # does the calculations required with a funcion
+    return currentamount # returns the ending amount
 
 global time_units # mades time units a global variable
 time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365} # the dictionary used to convert a lot of data into per year format
-loop = True
-while loop ==True:
+loop = True # creates a true variable
+while loop ==True: # while the variable above is true, the code will continue to run
     print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES") # homepage
     module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ") # asks for which module the user wants
     if module == "1": # if the user wants module 1
@@ -160,19 +160,19 @@ while loop ==True:
         header = ["Principal", "Interest", "Deposit", "Final"] # headings for the table
         print("Here is a table of the progression of your money over time\n\n") # prints an output
         print(tabulate(data, tablefmt="grid", headers=header)) # prints the table
-    elif module == "5":
-        quarterly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
-        weekly = {"principal":1000, "rate":100, "time":"year", "compound rate":"week", "projection unit":"year", "projection time":1}
-        daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1}
-        hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":8760, "projection unit":"year", "projection time":1}
-        tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":52704, "projection unit":"year", "projection time":1}
-        quarterlyamount = round(loopington(quarterly), 2)
-        weeklyamount = round(loopington(weekly), 2)
-        dailyamount = round(loopington(daily), 2)
-        hourlyamount = round(loopington(hourly), 2)
-        tenminutelyamount = round(loopington(tenminutely), 2)
-        print(f"If you compound quarterly, you would end up with ${quarterlyamount}\nIf you compound weekly, you would end up with${weeklyamount}\nIf you compound daily, you would end up with ${dailyamount}\nIf you compound hourly, you would end up with ${hourlyamount}\nIf you compound every ten minutes, you would end up with ${tenminutelyamount}")
-    else:
+    elif module == "5": # if the user wants module 5
+        quarterly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1} # creates dictionary for quarterly compound
+        weekly = {"principal":1000, "rate":100, "time":"year", "compound rate":"week", "projection unit":"year", "projection time":1} # creates dictionary for weekly compound
+        daily = {"principal":1000, "rate":100, "time":"year", "compound rate":"day", "projection unit":"year", "projection time":1} # creates dictionary for daily compound
+        hourly = {"principal":1000, "rate":100, "time":"year", "compound rate":8760, "projection unit":"year", "projection time":1} # creates dictionary for hourly compound
+        tenminutely = {"principal":1000, "rate":100, "time":"year", "compound rate":52704, "projection unit":"year", "projection time":1} # creates dictionary for compounding every 10 minutes
+        quarterlyamount = round(loopington(quarterly), 2) # calls the function to do calculations in a loop
+        weeklyamount = round(loopington(weekly), 2) # calls the function to do calculations in a loop
+        dailyamount = round(loopington(daily), 2) # calls the function to do calculations in a loop
+        hourlyamount = round(loopington(hourly), 2) # calls the function to do calculations in a loop
+        tenminutelyamount = round(loopington(tenminutely), 2) # calls the function to do calculations in a loop
+        print(f"If you compound quarterly, you would end up with ${quarterlyamount}\nIf you compound weekly, you would end up with${weeklyamount}\nIf you compound daily, you would end up with ${dailyamount}\nIf you compound hourly, you would end up with ${hourlyamount}\nIf you compound every ten minutes, you would end up with ${tenminutelyamount}") # outputs all the information
+    else: # if the user wants to exit
         print("""
                                     µçççççççµ
                             µ▄æ╧╜╩ññ.  ▄▄▄æ##æ▄▓▀▄,
@@ -220,5 +220,5 @@ while loop ==True:
                         ]æ#Ö  └▀▓▓▓▄▄▓██▄▓▄▄▓▓▓▓▓▄
                             ²▄▄▓▓▀▀█▓▒▓▀▀█▄ç Ñ
                                     ╙*    ╛
-        """)
-        loop = False
+        """) # soyjak
+        loop = False # turns off the loop
