@@ -126,40 +126,40 @@ while loop ==True:
             currentamount2 = calculations235(currentamount2, interestpercompound2)
             progression2.append(round(currentamount2, 2))
         print(f"\nIn the first account, the progression throughout the projection is {progression1}\n\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\n\nThe total amount at the end is {progression2[-1]}") # outputs all the data
-    elif module == "4":
-        account = compound_numbers(module)
-        principals = []
-        interests = []
-        deposits = []
-        finals = []
-        currentamount = account["principal"]
-        if account["compound rate"] in time_units:
-            compoundrate = time_units[account["compound rate"]]
-        else:
-            compoundrate = account["compound rate"]
-        interestpercompound = (account["rate"]/(compoundrate/time_units[account["time"]]))/100
-        depositamount = account["deposit amount"]
-        if account["target amount"] == 0:
-            for e in range(int((compoundrate)*account["into future"])):
-                principals.append(round(currentamount, 2))
+    elif module == "4": # if the user wants module 4
+        account = compound_numbers(module) # calls function to gather information
+        principals = [] # empty list for each of the new principals
+        interests = [] # empty list for each of the interests
+        deposits = [] # empty list for the deposits
+        finals = [] # empty list for the final amounts
+        currentamount = account["principal"] # the current amount is the principal
+        if account["compound rate"] in time_units: # if it is not a custom compound rate
+            compoundrate = time_units[account["compound rate"]] # sets the compound rate to the number of compounds per year
+        else: # if it is a custom compound rate
+            compoundrate = account["compound rate"] # the compound rate is the same (number)
+        interestpercompound = (account["rate"]/(compoundrate/time_units[account["time"]]))/100 # calculates the interest per compound
+        depositamount = account["deposit amount"] # sets the deposit amount
+        if account["target amount"] == 0: # if the user wants to run until a projected time
+            for e in range(int((compoundrate)*account["into future"])): # runs loop until the projected time ends
+                principals.append(round(currentamount, 2)) # adds principal to list
+                interest = currentamount * interestpercompound # calculates the interest
+                currentamount += interest + depositamount # adds interest and deposit to current amount
+                deposits.append(depositamount) # adds deposit amount to list
+                finals.append(round(currentamount, 2)) # adds final amount to list
+                interests.append(round(interest, 2)) # adds the interest amount list
+        else: # if the user wants to run until a target is met
+            while currentamount < account["target amount"]: # while the current amount is less than the target amount
+                principals.append(round(currentamount, 2)) # from this line to line 157 does the same as the loop above
                 interest = currentamount * interestpercompound
                 currentamount += interest + depositamount
                 deposits.append(depositamount)
                 finals.append(round(currentamount, 2))
                 interests.append(round(interest, 2))
-        else:
-            while currentamount < account["target amount"]:
-                principals.append(round(currentamount, 2))
-                interest = currentamount * interestpercompound
-                currentamount += interest + depositamount
-                deposits.append(depositamount)
-                finals.append(round(currentamount, 2))
-                interests.append(round(interest, 2))
-        data = principals, interests, deposits, finals
-        data = list(map(list, zip(*data)))
-        header = ["Principal", "Interest", "Deposit", "Final"]
-        print("Here is a table of the progression of your money over time\n\n")
-        print(tabulate(data, tablefmt="grid", headers=header))
+        data = principals, interests, deposits, finals # puts the 4 lists into a variable
+        data = list(map(list, zip(*data))) # uses the data in the table
+        header = ["Principal", "Interest", "Deposit", "Final"] # headings for the table
+        print("Here is a table of the progression of your money over time\n\n") # prints an output
+        print(tabulate(data, tablefmt="grid", headers=header)) # prints the table
     elif module == "5":
         quarterly = {"principal":1000, "rate":100, "time":"year", "compound rate":"quarter", "projection unit":"year", "projection time":1}
         weekly = {"principal":1000, "rate":100, "time":"year", "compound rate":"week", "projection unit":"year", "projection time":1}
