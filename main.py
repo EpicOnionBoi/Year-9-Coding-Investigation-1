@@ -98,24 +98,24 @@ while loop ==True:
             progression.append(round(currentamount, 2)) # adds the current amount to a list
         print(f"\nHere is a list of the progression of the money until the target was reached: {progression}\n") # prints the list with the progressions in it
         print(f"A total of {periods} compounds are needed to reach the target") # prints the number of compounds needed to reach the target
-    elif module == "3":
-        print("\nCOMPOUND ACCOUNT 1:\n")
-        account1 = compound_numbers(module)
-        future1 = projection()
-        print("\nCOMPOUND ACCOUNT 2:\n")
-        account2 = compound_numbers(module)
-        future2 = projection()
-        if account1["compound rate"] in time_units:
-            compoundrate1 = time_units[account1["compound rate"]]
-        else:
-            compoundrate1 = account1["compound rate"]
-        interestpercompound1 = (account1["rate"]/(compoundrate1/time_units[account1["time"]]))/100
-        currentamount1 = account1["principal"]
-        progression1 = []
-        for e in range(int((compoundrate1)*future1["projection time"])):
-            currentamount1 = calculations235(currentamount1, interestpercompound1)
-            progression1.append(round(currentamount1, 2))
-        if account2["compound rate"] in time_units:
+    elif module == "3": # if the user wants module 3
+        print("\nCOMPOUND ACCOUNT 1:\n") # prints heading
+        account1 = compound_numbers(module) # gathers data for first account
+        future1 = projection() # gathers projection data for first account
+        print("\nCOMPOUND ACCOUNT 2:\n") # prints heading
+        account2 = compound_numbers(module) # gathers data for second account
+        future2 = projection() # gathers projection data for second account
+        if account1["compound rate"] in time_units: # if it is not a custom compound rate
+            compoundrate1 = time_units[account1["compound rate"]] # converts compound rate to the number of compounds per year
+        else: # if it is a custom compound rate
+            compoundrate1 = account1["compound rate"] # the compound rate is the same (a number)
+        interestpercompound1 = (account1["rate"]/(compoundrate1/time_units[account1["time"]]))/100 # calculates the interest in each compound
+        currentamount1 = account1["principal"] # the current amount is the principal
+        progression1 = [] # empty list for progression
+        for e in range(int((compoundrate1)*future1["projection time"])): # loop to do calculations for set amount of time
+            currentamount1 = calculations235(currentamount1, interestpercompound1) # calls the function to do the calculations
+            progression1.append(round(currentamount1, 2)) # adds the current amount to the empty list
+        if account2["compound rate"] in time_units: # from this line to line 127 is the same as above, but for the second account
             compoundrate2 = time_units[account2["compound rate"]]
         else:
             compoundrate2 = account2["compound rate"]
@@ -125,7 +125,7 @@ while loop ==True:
         for e in range(int((compoundrate2)*future2["projection time"])):
             currentamount2 = calculations235(currentamount2, interestpercompound2)
             progression2.append(round(currentamount2, 2))
-        print(f"\nIn the first account, the progression throughout the projection is {progression1}\n\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\n\nThe total amount at the end is {progression2[-1]}")
+        print(f"\nIn the first account, the progression throughout the projection is {progression1}\n\nThe total amount at the end is {progression1[-1]}\n\nIn the second account, the progression throughout the projection is {progression2}\n\nThe total amount at the end is {progression2[-1]}") # outputs all the data
     elif module == "4":
         account = compound_numbers(module)
         principals = []
