@@ -70,7 +70,7 @@ global time_units # mades time units a global variable
 time_units = {"year" : 1, "quarter" : 4, "month" : 12, "week" : 52, "day" : 365} # the dictionary used to convert a lot of data into per year format
 loop = True # creates a true variable
 while loop ==True: # while the variable above is true, the code will continue to run
-    print("WELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES") # homepage
+    print("\nWELCOME TO INTEREST CALCULATIONS AND STUFF\n\nTHIS PROGRAM HAS 5 MODULES\n\nMODULE 1: COMPARING SIMPLE AND COMPOUND INTEREST ACCOUNTS\nMODULE 2: HOW LONG IT WILL TAKE FOR A CI ACCOUNT TO REACH A TARGET\nMODULE 3: COMPARE 2 CI ACCOUNTS\nMODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS\nMODULE 5: A SIMULATION THAT COMPARES DIFFERENT COMPOUND RATES") # homepage
     module = input("\nENTER NUMBERS 1-5, OR ANYTHING ELSE TO EXIT: ") # asks for which module the user wants
     if module == "1": # if the user wants module 1
         print("\nSIMPLE INTEREST SAVINGS ACCOUNT\n") # prints a heading
@@ -171,7 +171,7 @@ while loop ==True: # while the variable above is true, the code will continue to
         dailyamount = round(loopington(daily), 2) # calls the function to do calculations in a loop
         hourlyamount = round(loopington(hourly), 2) # calls the function to do calculations in a loop
         tenminutelyamount = round(loopington(tenminutely), 2) # calls the function to do calculations in a loop
-        print(f"If you compound quarterly, you would end up with ${quarterlyamount}\nIf you compound weekly, you would end up with${weeklyamount}\nIf you compound daily, you would end up with ${dailyamount}\nIf you compound hourly, you would end up with ${hourlyamount}\nIf you compound every ten minutes, you would end up with ${tenminutelyamount}") # outputs all the information
+        print(f"\nIf you compound quarterly, you would end up with ${quarterlyamount}\nIf you compound weekly, you would end up with${weeklyamount}\nIf you compound daily, you would end up with ${dailyamount}\nIf you compound hourly, you would end up with ${hourlyamount}\nIf you compound every ten minutes, you would end up with ${tenminutelyamount}") # outputs all the information
     else: # if the user wants to exit
         print("""
                                     µçççççççµ
