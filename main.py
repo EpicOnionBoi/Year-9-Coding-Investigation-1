@@ -81,6 +81,7 @@ while loop ==True: # while the variable above is true, the code will continue to
         future = projection() # calls the function to get projection data
         simpleinterestearned = round(simple_calculations(simpleaccount, future) - simpleaccount["principal"], 2) # calculates the interest earned for the simple interest account
         compoundinterestearned = round(compound_calculations(compoundaccount, future) - compoundaccount["principal"], 2) # calculates the interest earned for the compound account
+        print(f"\nThe SI account has a principal of ${simpleaccount['principal']}, and an interest rate of {simpleaccount['rate']}% per {simpleaccount['time']}\n\nThe CI account has a principal of ${compoundaccount['principal']} and an interest rate of {compoundaccount['rate']}% per {compoundaccount['time']}. The compound frequency is {compoundaccount['compound rate']}\n\nThe projected time frame is {future['projection time']} {future['projection unit']}s") # summarises data
         print(f"\nIn a simple intereset account, with the data you entered, you would end up with ${simple_calculations(simpleaccount, future)}. The total interest earned is $ {simpleinterestearned}.") # prints the data for simple interest account
         print(f"In a compound interest account, with the data you entered, you would end up with ${compound_calculations(compoundaccount, future)}. The total interest earned is ${compoundinterestearned}.") # prints the data for ccompound interest account
     elif module == "2": # if the user wants module 2
@@ -96,6 +97,7 @@ while loop ==True: # while the variable above is true, the code will continue to
             periods += 1 # adds one to the number of compounds
             currentamount = calculations235(currentamount, interestpercompound) # calls the function to do the calculations
             progression.append(round(currentamount, 2)) # adds the current amount to a list
+        print(f"\nThe account has a principal of ${compoundaccount['principal']} and an interest rate of {compoundaccount['rate']}% per {compoundaccount['time']}. The compound frequency is {compoundaccount['compound rate']}\n\nThe target amount is ${compoundaccount['target amount']}") # summarises data
         print(f"\nHere is a list of the progression of the money until the target was reached: {progression}\n") # prints the list with the progressions in it
         print(f"A total of {periods} compounds are needed to reach the target") # prints the number of compounds needed to reach the target
     elif module == "3": # if the user wants module 3
